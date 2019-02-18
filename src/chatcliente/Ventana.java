@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Ventana de chat
@@ -43,6 +45,11 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         salida.setColumns(20);
         salida.setRows(5);
@@ -201,6 +208,7 @@ public class Ventana extends javax.swing.JFrame {
                     if (inmensaje.getText().equals("/bye")) {
                         os.close();
                         is.close();
+                        conectado=false;
                         System.exit(0);
                     }
                     inmensaje.setText("");
@@ -214,6 +222,16 @@ public class Ventana extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_enviarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(conectado==true){
+            try {
+                os.write("/bye".getBytes());
+            } catch (IOException ex) {
+                System.out.println("Error al irse");
+            }
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
