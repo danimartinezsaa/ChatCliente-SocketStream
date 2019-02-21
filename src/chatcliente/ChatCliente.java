@@ -42,7 +42,7 @@ class Recibir extends Thread {
                 salida.setText(salida.getText()+"\n"+mensaje);
                 estado.setText("Conectado");
             } catch (IOException ex) {
-                estado.setText("Error al recibir mensajes.");
+                estado.setText("El servidor está cerrado.");
             }
         }
 

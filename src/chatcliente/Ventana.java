@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Ventana de chat
@@ -164,7 +162,11 @@ public class Ventana extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Listener botón conectar.
+     * Comprueba que haya valores en todos los campos de entrada y si es así, establece conexión con el servidor.
+     * @param evt 
+     */
     private void conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarActionPerformed
         try {
             if (indireccion.getText().equals("") || inpuerto.getText().equals("") || innickname.getText().equals("")) {
@@ -199,7 +201,12 @@ public class Ventana extends javax.swing.JFrame {
             estado.setText("Puerto tiene que ser un valor numérico.");
         }
     }//GEN-LAST:event_conectarActionPerformed
-
+/**
+ * Listener botón de enviar.
+ * Envía al servidor la cadena introducida en la entrada de texto si esta no está vacía.
+ * Si envía /bye se cierra la conexión
+ * @param evt 
+ */
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
         if (conectado == true) {
             if (!inmensaje.getText().equals("")) {
@@ -222,7 +229,11 @@ public class Ventana extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_enviarActionPerformed
-
+/**
+ * Listener cerrado de ventana
+ * Si se cierra la ventana se envía /bye para cerrar la conexión
+ * @param evt 
+ */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if(conectado==true){
             try {
